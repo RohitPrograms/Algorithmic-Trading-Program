@@ -4,7 +4,7 @@ import pprint
 from td.client import TDClient
 from websockets import client  # Fixes a bug in websockets 10
 
-from config import *
+from Config import *
 
 
 def authenticateAPI() -> TDClient:
