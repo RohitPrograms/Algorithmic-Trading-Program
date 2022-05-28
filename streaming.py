@@ -1,8 +1,6 @@
 import asyncio
-import pprint
-import sqlite3
+import pprint as pp
 import datetime as dt
-from td.client import TDClient
 from websockets import client  # Fixes a bug in websockets 10
 
 from Config import *
@@ -12,9 +10,10 @@ from DatabaseHelpers import *
 
 for Ticker in Watchlist_Tickers:
     CreateTimesaleTable(Ticker)
+    CreateCandlestickTable(Ticker)
 
 
-TDStreamingClient.timesale(service = 'TIMESALE_FUTURES', symbols= Watchlist_Tickers, fields = [0, 1, 2, 3, 4])
+TDStreamingClient.timesale(service = 'TIMESALE_EQUITY', symbols= Watchlist_Tickers, fields = [0, 1, 2, 3, 4])
 
 async def TimesalePipeline():
     await TDStreamingClient.build_pipeline()
@@ -26,8 +25,6 @@ async def TimesalePipeline():
             
             for timesale in data['data'][0]['content']:
                 
-                print('-'*20)
-                
                 Ticker = timesale['key']
                 trade_unix_epoch = int(timesale['1'] / 1000)
                 Trade_Time = dt.datetime.fromtimestamp(trade_unix_epoch)
@@ -35,7 +32,10 @@ async def TimesalePipeline():
                 Trade_Volume = timesale['3']
                 
                 InsertIntoTimesaleTable(Ticker, Trade_Time, Trade_Price, Trade_Volume)
-                PrintTimesales(Ticker)
+                AddToCandlesticks(Ticker, Trade_Time, Trade_Price, Trade_Volume)
+                
+                PrintCandlesticks(Ticker)
+                # PrintTimesales(Ticker) 
                 
                 
 

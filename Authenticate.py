@@ -18,5 +18,5 @@ def Get_Watchlist_Stocks():
         Tickers.append(watchlistStocks[stock]['instrument']['symbol'])
     return Tickers
 
-Watchlist_Tickers = ['/ES', '/MES']
-# Watchlist_Tickers = Get_Watchlist_Stocks()
+Watchlist_Tickers = ['SPY']
+# Watchlist_Tickers = Get_Watchlist_Stocks()  
