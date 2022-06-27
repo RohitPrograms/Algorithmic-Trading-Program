@@ -98,7 +98,7 @@ This trading strategy incorporates the **ADX** and **DMI** to determine buy and 
 ## **Current Goals**
 
 - **Storing Orders**
-  - While I have an SQL table in Signals.py that stores all of the buy signals, I would take to have another table which stores all of the purchases and sales that the program has made.
+  - While I have an SQL table in **Signals.py** that stores all of the buy signals, I would take to have another table which stores all of the purchases and sales that the program has made.
 <br><br/>
 
 - **Determining Take-Profit Margins**
